@@ -256,7 +256,13 @@
 						<div class="destination item">
 							<div class="destination_image">
 								<img src="{{imgsUrl}}/{{des.img}}" alt="">
+
+								{% if des.spical %}
+								
 								<div class="spec_offer text-center"><a href="#">Special Offer</a></div>
+
+								{% endif %}
+
 							</div>
 							<div class="destination_content">
 								<div class="destination_title"><a href="destinations.html">{{des.name}}</a></div>
