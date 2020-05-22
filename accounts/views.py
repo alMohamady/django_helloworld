@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
+from django.contrib import messages
 
 # Create your views here.
 
@@ -15,15 +16,17 @@ def register(request):
 
         if psw == psw_repeat:
             if User.objects.filter(username= username).exists():
-                print('Username is already taken')
+                messages.info(request, 'Username is already taken')
+                return redirect('register')
             elif User.objects.filter(email= email).exists():
-                print('email is already taken')  
+                messages.info(request, 'email is already taken')
+                return redirect('register')
             else:
                 user = User.objects.create_user(username= username, password= psw, email= email, first_name= first_name, last_name= last_name)
                 user.save()
-                print('User Saved')
+                messages.info(request, 'User Saved')
         else:
-            print('passwords not matching..')
+            messages.info(request, 'passwords not matching..')
 
         return redirect('/')
     else:
