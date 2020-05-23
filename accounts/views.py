@@ -31,3 +31,11 @@ def register(request):
         return redirect('/')
     else:
         return render(request, 'register.html')
+
+
+def login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+    else:
+        return render(request, 'login.html')
