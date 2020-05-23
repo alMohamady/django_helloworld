@@ -27,6 +27,7 @@ def register(request):
                 messages.info(request, 'User Saved')
         else:
             messages.info(request, 'passwords not matching..')
+            return redirect('register')
 
         return redirect('/')
     else:
@@ -37,5 +38,15 @@ def login(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
+
+        user = auth.authenticate(username= username, password= password)
+
+        if user is not None:
+            auth.login(request, user)
+            return redirect('/')
+        else:
+            messages.info(request, 'invalid username or password') 
+            return redirect('login')
+
     else:
         return render(request, 'login.html')
